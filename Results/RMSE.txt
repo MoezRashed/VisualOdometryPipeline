@@ -1,0 +1,1 @@
+RMSE between Estimated and Ground Truth Trajectories: 27.1545 meters
