@@ -44,7 +44,7 @@ def main():
 
     config_path = os.path.join('configs', 'config.yaml')
     config      = load_config(config_path)
-    root        = r'/Users/moezrashed/Documents/Programming/Python/QUARRG/ui_cd_s'
+    root        = r'/Users/moezrashed/Documents/Programming/Python/VisualOdometryPipeline/ui_cd_s'
     # Dataset
     dataset_cam = AdverCityDataset(root, cam=0, car=0)
 
