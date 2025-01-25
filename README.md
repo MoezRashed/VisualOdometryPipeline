@@ -41,8 +41,7 @@ pip install -r requirements.txt
 
 1. Download the AdverCity dataset from [this link](https://labs.cs.queensu.ca/quarrg/datasets/adver-city/).
 2. Place the dataset in your desired directory.
-3. Change the path to the dataset in the `main.py` file.
-4. Update the `config.yaml` file in the `configs` folder to adjust parameters as needed.
+3. Update the config.yaml file in the configs folder to point to your dataset's location and adjust parameters as needed.
 5. Run the main script:
 ```bash
 python main.py
