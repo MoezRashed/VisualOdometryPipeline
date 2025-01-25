@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D  # Needed for 3D projection
+from mpl_toolkits.mplot3d import Axes3D
 
 def plot_trajectories_3d(gt_coords, est_coords, title="3D Trajectory Comparison"):
     """
@@ -32,22 +32,6 @@ def plot_trajectories_3d(gt_coords, est_coords, title="3D Trajectory Comparison"
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
-
-    # # Optional fix aspect ratio
-    # max_range = np.array([
-    #     x_gt.max()-x_gt.min(),
-    #     y_gt.max()-y_gt.min(),
-    #     z_gt.max()-z_gt.min(),
-    #     x_est.max()-x_est.min(),
-    #     y_est.max()-y_est.min(),
-    #     z_est.max()-z_est.min()
-    # ]).max() / 2.0
-    # mid_x = (x_gt.max()+x_gt.min()+x_est.max()+x_est.min())/4.0
-    # mid_y = (y_gt.max()+y_gt.min()+y_est.max()+y_est.min())/4.0
-    # mid_z = (z_gt.max()+z_gt.min()+z_est.max()+z_est.min())/4.0
-    # ax.set_xlim(mid_x - max_range, mid_x + max_range)
-    # ax.set_ylim(mid_y - max_range, mid_y + max_range)
-    # ax.set_zlim(mid_z - max_range, mid_z + max_range)
 
     ax.legend()
     plt.tight_layout()

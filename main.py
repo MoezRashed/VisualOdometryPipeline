@@ -9,34 +9,10 @@ from Matching.matcher            import Matcher
 from utils.config                import load_config
 from motion_estimation.estimator import MotionEstimator
 from Extraction.extractor        import FeatureExtractor
-from utils.image_utils           import convert_pil_to_cv
+from utils.image_utils           import convert_pil_to_cv, euler_to_matrix
 from utils.dataset               import AdverCityDataset, process_dataset
 from utils.plotting              import  plot_trajectories_3d,compare_trajectories_3d
 
-#function to convert euler angles to rotation matrix
-def euler_to_matrix(roll, pitch, yaw, degrees=True):
-    """Convert Euler angles (roll, pitch, yaw) to 3x3 rotation."""
-    if degrees:
-        roll  = math.radians(roll)
-        pitch = math.radians(pitch)
-        yaw   = math.radians(yaw)
-    Rx = np.array([
-        [1,           0,            0],
-        [0,  math.cos(roll), -math.sin(roll)],
-        [0,  math.sin(roll),  math.cos(roll)]
-    ])
-    Ry = np.array([
-        [ math.cos(pitch),  0, math.sin(pitch)],
-        [             0,    1,              0],
-        [-math.sin(pitch),  0, math.cos(pitch)]
-    ])
-    Rz = np.array([
-        [ math.cos(yaw), -math.sin(yaw), 0],
-        [ math.sin(yaw),  math.cos(yaw), 0],
-        [           0,               0, 1]
-    ])
-    # typical Rz * Ry * Rx
-    return Rz @ Ry @ Rx
 
 def main():
     
@@ -44,8 +20,7 @@ def main():
 
     config_path = os.path.join('configs', 'config.yaml')
     config      = load_config(config_path)
-    root        = r'/Users/moezrashed/Documents/Programming/Python/VisualOdometryPipeline/ui_cd_s'
-    # Dataset
+    root        = config.get('root')
     dataset_cam = AdverCityDataset(root, cam=0, car=0)
 
     # Initialize camera data
@@ -81,6 +56,7 @@ def main():
     matcher           = Matcher(config)
     motion_estimator  = MotionEstimator(camera_matrix=np.array(camera_intrinsics),extrinsics=extrinsics_0)
     
+    # Flip coordinates
     ground_truth_3d = [[z,-x,-y] for x,y,z in ground_truth_3d]
 
     # Initialize estimated trajectory

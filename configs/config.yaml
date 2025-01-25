@@ -14,9 +14,12 @@
 # patchsize         --> Size of the patch around each keypoint used to compute the descriptor
 # fastThreshold     --> Threshold for the FAST keypoint detector used in ORB / lower values detect more features but may include noise Source: CHATGPT
 # sigma             --> Std of the gaussian noise. The higher the values the smoother the image
-root : '/Users/moezrashed/Documents/Programming/Python/QUARRG/ui_cd_s'
+
+#Change this to the path of the dataset
+root : '/Users/moezrashed/Documents/Programming/Python/VisualOdometryPipeline/ui_cd_s'
+
 feature_extractor:
-  type: SIFT  
+  type: SIFT  # Options: SIFT, ORB
   ORB:
     nfeatures: 1000
     scaleFactor: 1.2
@@ -37,10 +40,10 @@ feature_extractor:
 matcher:
   type: BF  # Options: BF, FLANN
   BF:
-    HAMMING: false #close it when using SIFT
+    HAMMING: false #false when using SIFT
     cross_check: true
   FLANN:
-    algorithm: 1  # 1 for SIFT -- 6 for ORB
+    algorithm: 1  
     kdTrees: 5
     searchChecks: 50
   strategy:

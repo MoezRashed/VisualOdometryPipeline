@@ -1,4 +1,4 @@
-#For testing
+import math
 import logging
 import cv2   as cv
 import numpy as np
@@ -45,3 +45,28 @@ def scale_image(image: np.ndarray, scale_factor: float) -> np.ndarray:
     new_size = (int(image.shape[1] * scale_factor), int(image.shape[0] * scale_factor))  
     scaled_image = cv.resize(image, new_size, interpolation=cv.INTER_AREA)
     return scaled_image
+
+#function to convert euler angles to rotation matrix
+def euler_to_matrix(roll, pitch, yaw, degrees=True):
+    """Convert Euler angles (roll, pitch, yaw) to 3x3 rotation."""
+    if degrees:
+        roll  = math.radians(roll)
+        pitch = math.radians(pitch)
+        yaw   = math.radians(yaw)
+    Rx = np.array([
+        [1,           0,            0],
+        [0,  math.cos(roll), -math.sin(roll)],
+        [0,  math.sin(roll),  math.cos(roll)]
+    ])
+    Ry = np.array([
+        [ math.cos(pitch),  0, math.sin(pitch)],
+        [             0,    1,              0],
+        [-math.sin(pitch),  0, math.cos(pitch)]
+    ])
+    Rz = np.array([
+        [ math.cos(yaw), -math.sin(yaw), 0],
+        [ math.sin(yaw),  math.cos(yaw), 0],
+        [           0,               0, 1]
+    ])
+    # typical Rz * Ry * Rx
+    return Rz @ Ry @ Rx
