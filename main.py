@@ -23,7 +23,6 @@ def main():
     root        = config.get('root')
     dataset_cam = AdverCityDataset(root, cam=0, car=0)
 
-    # Initialize camera data
     camera_data = {
         'camera0': {
             'images': [],
